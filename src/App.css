@@ -1266,6 +1266,55 @@ header .circle {
   font-size: 1.1rem;
   transition: 0.3s;
 }
+/* **** */
+.footer {
+  background: #222;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin-bottom: 0px;
+}
+
+.footer-links li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.footer-links i {
+  font-size: 18px;
+  color: #1DA1F2;
+}
+
+.bottom-footer {
+  margin-top: 0px;
+  font-size: 14px;
+}
+.bottom-footer p{
+  margin: auto;
+}
+
+
+/* ****** */
 
 .input-arrow {
   color: #fff;

@@ -8,7 +8,7 @@ app.use(cors()); // Permet à React d'accéder au serveur
 
 // Configuration de l'e-mail
 const CONTACT_EMAIL = "jobilyaselbakkali@gmail.com"; // Ton email Gmail
-const CONTACT_PASSWORD = "Ilyas.2022"; // Ton mot de passe d'application Gmail
+const CONTACT_PASSWORD = "vkir xitg rbku ekod"; // Ton mot de passe d'application Gmail
 const EMAIL_DESTINATION = "ilyas.elbakkali101@gmail.com"; // Email qui recevra les messages
 
 // Configurer Nodemailer
