@@ -11,6 +11,9 @@ function About() {
         <p>
           My expertise includes web development, mobile app design, and UI/UX. I'm always learning and staying up-to-date with the latest technologies and trends.
         </p>
+        <p>
+          ilyas
+        </p>
       </div>
     </section>
   );
