@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const Contact = () => {
+  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
@@ -9,26 +10,46 @@ const Contact = () => {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      const response = await axios.post("http://localhost:5000/sendcontact", { firstName, lastName, phone, email, message });
+  try {
+    const response = await axios.post(`${API_URL}/sendcontact`, {
+      firstName,
+      lastName,
+      phone,
+      email,
+      message,
+    });
 
-      if (response.data.success) {
-        setStatus("Message envoyé avec succès !");
-        setFirstName("");
-        setLastName("");
-        setPhone("");
-        setEmail("");
-        setMessage("");
-      } else {
-        setStatus("Échec de l'envoi du message.");
-      }
-    } catch (error) {
-      setStatus("Erreur lors de l'envoi du message.");
+    if (response.data.success) {
+      console.log("✅ Message envoyé avec succès :", response.data);
+      setStatus("Message envoyé avec succès !");
+      setFirstName("");
+      setLastName("");
+      setPhone("");
+      setEmail("");
+      setMessage("");
+    } else {
+      console.error("❌ Échec de l'envoi :", response.data);
+      setStatus("Échec de l'envoi du message.");
     }
-  };
+  } catch (error) {
+    console.error("❌ Erreur lors de la requête POST :");
+    console.error("Message :", error.message);
+    if (error.response) {
+      console.error("Réponse serveur :", error.response.data);
+      console.error("Code HTTP :", error.response.status);
+    } else if (error.request) {
+      console.error("Aucune réponse reçue :", error.request);
+    } else {
+      console.error("Erreur inconnue :", error);
+    }
+
+    setStatus("Erreur lors de l'envoi du message.");
+  }
+};
+
 
   return (
     <section className="contact" id="contact">

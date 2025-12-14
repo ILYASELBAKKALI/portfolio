@@ -1,29 +1,22 @@
 import nodemailer from 'nodemailer';
 
-// Configuration de l'e-mail
-const CONTACT_HOST = 'smtp.gmail.com';
-const CONTACT_PORT = 587;
-const CONTACT_EMAIL = 'jobilyaselbakkali@gmail.com';
-const CONTACT_PASSWORD = 'Ilyas.2022';
-const EMAIL_DESTINATION = 'ilyas.elbakkali101@gmail.com';
-
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     const { firstName, lastName, phone, email, message } = req.body;
 
     const transporter = nodemailer.createTransport({
-      host: CONTACT_HOST,
-      port: CONTACT_PORT,
-      secure: false, // true pour le port 465
+      host: 'smtp-relay.brevo.com',
+      port: 587,
+      secure: false, // false pour STARTTLS (port 587)
       auth: {
-        user: CONTACT_EMAIL,
-        pass: CONTACT_PASSWORD,
+        user: process.env.CONTACT_EMAIL,     // 908e16001@smtp-brevo.com
+        pass: process.env.CONTACT_PASSWORD,  // Ta clé SMTP : BQCOG4UXK8mWEJ0x
       },
     });
 
     const mailOptions = {
-      from: CONTACT_EMAIL,
-      to: EMAIL_DESTINATION,
+      from: `"Portfolio Contact" <${process.env.CONTACT_EMAIL}>`,
+      to: process.env.EMAIL_DESTINATION, // Ton adresse perso ou pro
       subject: `Nouveau message de ${firstName} ${lastName}`,
       text: `Nom : ${firstName} ${lastName}\nTéléphone : ${phone}\nEmail : ${email}\nMessage : ${message}`,
     };
@@ -32,7 +25,7 @@ export default async function handler(req, res) {
       await transporter.sendMail(mailOptions);
       res.status(200).json({ success: true, message: "Message envoyé avec succès !" });
     } catch (error) {
-      console.error(error);
+      console.error("Erreur SMTP :", error);
       res.status(500).json({ success: false, message: "Erreur lors de l'envoi de l'email." });
     }
   } else {
